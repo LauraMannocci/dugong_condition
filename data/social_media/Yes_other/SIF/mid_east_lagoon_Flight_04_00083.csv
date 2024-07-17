@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,mid_east_lagoon_Flight_04_00083.JPG:1_1_l,69,4405.333,2408.333,-158.562,68.399,4,1,2,1,1,female,mid_east_lagoon_Flight_04_00083.JPG:2_1_l
+2,mid_east_lagoon_Flight_04_00083.JPG:1_1_w,18,4412.25,2405.75,-68.663,17.177,4,1,2,1,1,female,mid_east_lagoon_Flight_04_00083.JPG:2_1_w
+3,mid_east_lagoon_Flight_04_00083.JPG:2_1_l,53,4434.25,2442.875,-146.689,52.351,4,1,2,1,1,calf,mid_east_lagoon_Flight_04_00083.JPG:1_1_l
+4,mid_east_lagoon_Flight_04_00083.JPG:2_1_w,13,4439.188,2441.375,-57.863,11.514,4,1,2,1,1,calf,mid_east_lagoon_Flight_04_00083.JPG:1_1_w

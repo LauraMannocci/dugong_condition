@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,Evan_Trotzuk_1bmp4-01190.jpeg:5_4_l,196,1190.125,802,26.795,195.21,4,1,2,1,1,female,Evan_Trotzuk_1bmp4-01190.jpeg:6_4_w
+2,Evan_Trotzuk_1bmp4-01190.jpeg:5_4_w,44,1172.625,809.125,-61.79,42.838,4,1,2,1,1,female,Evan_Trotzuk_1bmp4-01190.jpeg:6_4_l
+3,Evan_Trotzuk_1bmp4-01190.jpeg:6_4_w,26,1167.75,758.75,-64.44,25.495,4,1,2,1,1,calf,Evan_Trotzuk_1bmp4-01190.jpeg:5_4_l
+4,Evan_Trotzuk_1bmp4-01190.jpeg:6_4_l,111,1176.5,755.75,22.238,109.656,4,1,2,1,1,calf,Evan_Trotzuk_1bmp4-01190.jpeg:5_4_w

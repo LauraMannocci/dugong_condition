@@ -1,0 +1,7 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,AlJazeera_1mp4-00112.jpeg:7_3_l,83,968.833,577.25,-57.412,81.695,9,2,2,1,1,unidentified ,
+2,AlJazeera_1mp4-00112.jpeg:7_3_w,17,962.417,567.5,31.686,15.865,9,2,2,1,1,unidentified ,
+3,AlJazeera_1mp4-00112.jpeg:8_3_l,75,1057.25,535.167,-60.558,74.256,9,2,2,1,1,female,AlJazeera_1mp4-00112.jpeg:9_3_l
+4,AlJazeera_1mp4-00112.jpeg:8_3_w,19,1052,527.167,28.443,18.196,9,2,2,1,1,female,AlJazeera_1mp4-00112.jpeg:9_3_w
+5,AlJazeera_1mp4-00112.jpeg:9_3_l,47,1079,539.417,-56.655,46.087,9,2,2,1,1,calf,AlJazeera_1mp4-00112.jpeg:8_3_l
+6,AlJazeera_1mp4-00112.jpeg:9_3_w,11,1076.75,535.25,32.32,9.664,9,2,2,1,1,calf,AlJazeera_1mp4-00112.jpeg:8_3_w

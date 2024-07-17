@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,spesh782_1mp4-00032.jpeg:1_3_l,435,446,472,-44.067,434.221,4,1,2,1,1,female,spesh782_1mp4-00032.jpeg:2_4_l
+2,spesh782_1mp4-00032.jpeg:1_3_w,119,502.5,498,43.971,118.106,4,1,2,1,1,female,spesh782_1mp4-00032.jpeg:2_4_w
+3,spesh782_1mp4-00032.jpeg:2_4_l,248,424,557,-33.433,246.844,4,1,2,1,1,calf,spesh782_1mp4-00032.jpeg:1_3_l
+4,spesh782_1mp4-00032.jpeg:2_4_w,70,459,581.5,56.31,68.505,4,1,2,1,1,calf,spesh782_1mp4-00032.jpeg:1_3_w

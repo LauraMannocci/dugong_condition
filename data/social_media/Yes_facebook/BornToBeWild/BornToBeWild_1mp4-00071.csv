@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,BornToBeWild_1mp4-00071.jpeg:1_2_l,555,957.5,641.5,-95.7,553.738,4,1,2,1,1,female,BornToBeWild_1mp4-00071.jpeg:2_1_l
+2,BornToBeWild_1mp4-00071.jpeg:1_2_w,139,961.5,562.5,-6.248,137.819,4,1,2,1,1,female,BornToBeWild_1mp4-00071.jpeg:2_1_w
+3,BornToBeWild_1mp4-00071.jpeg:2_1_l,298,1068.5,560,-97.556,296.575,4,1,2,1,2,calf,BornToBeWild_1mp4-00071.jpeg:1_2_l
+4,BornToBeWild_1mp4-00071.jpeg:2_1_w,76,1079,519,-9.211,74.967,4,1,2,1,2,calf,BornToBeWild_1mp4-00071.jpeg:1_2_w

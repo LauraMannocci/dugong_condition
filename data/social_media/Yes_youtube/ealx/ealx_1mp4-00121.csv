@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,ealx_1mp4-00121.jpeg:2_1_l,138,643.375,286.625,51.063,137.239,4,1,2,2,1,female,ealx_1mp4-00121.jpeg:3_1_l
+2,ealx_1mp4-00121.jpeg:2_1_w,31,635.25,298.625,-39.188,29.674,4,1,2,2,1,female,ealx_1mp4-00121.jpeg:3_1_w
+3,ealx_1mp4-00121.jpeg:3_1_l,75,660.5,311.625,56.417,74.122,4,1,2,1,1,calf,ealx_1mp4-00121.jpeg:2_1_l
+4,ealx_1mp4-00121.jpeg:3_1_w,19,657.75,318,-32.829,18.446,4,1,2,1,1,calf,ealx_1mp4-00121.jpeg:2_1_w

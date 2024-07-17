@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,BRUT_2mp4-00068.jpeg:3_3_l,183,463.5,654,-174.321,181.893,4,1,2,1,2,female,BRUT_2mp4-00068.jpeg:4_1_l
+2,BRUT_2mp4-00068.jpeg:3_3_w,61,485.5,657,-83.346,60.407,4,1,2,1,2,female,BRUT_2mp4-00068.jpeg:4_1_w
+3,BRUT_2mp4-00068.jpeg:4_1_l,145,408.25,588.375,-175.914,143.866,4,1,2,1,2,calf,BRUT_2mp4-00068.jpeg:3_3_l
+4,BRUT_2mp4-00068.jpeg:4_1_w,45,428.833,585.333,-83.037,43.991,4,1,2,1,2,calf,BRUT_2mp4-00068.jpeg:3_3_w

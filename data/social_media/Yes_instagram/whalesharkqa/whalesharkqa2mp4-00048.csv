@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,whalesharkqa2mp4-00048.jpeg:1_4_l,1061,395.5,1023,-84.967,1060.087,2,1,2,1,1,female,whalesharkqa2mp4-00048.jpeg:2_4_l
+2,whalesharkqa2mp4-00048.jpeg:1_4_w,254,370,868,4.989,252.958,2,1,2,1,1,female,whalesharkqa2mp4-00048.jpeg:2_4_w
+3,whalesharkqa2mp4-00048.jpeg:2_4_l,516,619.5,1028,-86.993,514.709,2,1,2,1,1,calf,whalesharkqa2mp4-00048.jpeg:1_4_l
+4,whalesharkqa2mp4-00048.jpeg:2_4_w,131,627,991.5,3.082,130.188,2,1,2,1,1,calf,whalesharkqa2mp4-00048.jpeg:1_4_w

@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,NewCaledonia_1mp4-00098.jpeg:1_3_l,680,895,309,-27.546,678.97,4,1,2,1,2,female ,NewCaledonia_1mp4-00098.jpeg:2_1_l
+2,NewCaledonia_1mp4-00098.jpeg:1_3_w,187,959,369,-110.772,186.097,4,1,2,1,2,female ,NewCaledonia_1mp4-00098.jpeg:2_1_w
+3,NewCaledonia_1mp4-00098.jpeg:2_1_l,532,823,706,-38.121,531.327,4,1,2,1,1,calf,NewCaledonia_1mp4-00098.jpeg:1_3_l
+4,NewCaledonia_1mp4-00098.jpeg:2_1_w,152,839,746,-124.743,150.904,4,1,2,1,1,calf,NewCaledonia_1mp4-00098.jpeg:1_3_w

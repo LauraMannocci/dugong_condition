@@ -1,0 +1,7 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,nickandlil_1mp4-00010.jpeg:1_2_l,102,725.875,504.875,-1.848,100.802,9,1,8,1,1,unidentified,
+2,nickandlil_1mp4-00010.jpeg:1_2_w,27,735.75,507.625,-91.112,25.755,9,1,8,1,1,unidentified,
+3,nickandlil_1mp4-00010.jpeg:3_1_l,110,1224,508,-3.861,108.914,9,1,2,1,1,female,nickandlil_1mp4-00010.jpeg:2_2_l
+4,nickandlil_1mp4-00010.jpeg:3_1_w,30,1233.5,508.25,-93.27,29.214,9,1,2,1,1,female,nickandlil_1mp4-00010.jpeg:2_2_w
+5,nickandlil_1mp4-00010.jpeg:2_2_l,73,1197.25,498.417,-18.184,72.101,9,1,2,1,1,calf,nickandlil_1mp4-00010.jpeg:3_1_l
+6,nickandlil_1mp4-00010.jpeg:2_2_w,22,1204.5,502,-107.301,21.297,9,1,2,1,1,claf,nickandlil_1mp4-00010.jpeg:3_1_w

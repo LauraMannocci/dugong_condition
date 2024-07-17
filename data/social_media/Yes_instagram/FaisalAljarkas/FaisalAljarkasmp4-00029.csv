@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,FaisalAljarkasmp4-00029.jpeg:1_4_l,449,343,838,-90.767,448.04,4,1,2,1,1,female,FaisalAljarkasmp4-00029.jpeg:3_5_l
+2,FaisalAljarkasmp4-00029.jpeg:1_4_w,111,352,776.5,-1.562,110.041,4,1,2,1,1,female,FaisalAljarkasmp4-00029.jpeg:3_5_w
+3,FaisalAljarkasmp4-00029.jpeg:3_5_l,288,244,903.5,-92.793,287.341,4,1,2,1,1,calf,FaisalAljarkasmp4-00029.jpeg:1_4_l
+4,FaisalAljarkasmp4-00029.jpeg:3_5_w,85,235,872,-4.086,84.214,4,1,2,1,1,calf,FaisalAljarkasmp4-00029.jpeg:1_4_w

@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,MongabayIndia_1mp4-00015.jpeg:1_2_l,135,778.625,504.375,-52.294,133.664,4,1,2,2,1,female,MongabayIndia_1mp4-00015.jpeg:2_2_l
+2,MongabayIndia_1mp4-00015.jpeg:1_2_w,30,769.875,484.875,37.962,28.855,4,1,2,2,1,female,MongabayIndia_1mp4-00015.jpeg:2_2_w
+3,MongabayIndia_1mp4-00015.jpeg:2_2_l,110,836.375,479.375,-47.045,108.964,4,1,2,2,1,calf,MongabayIndia_1mp4-00015.jpeg:1_2_l
+4,MongabayIndia_1mp4-00015.jpeg:2_2_w,26,827.25,467.625,42.158,24.956,4,1,2,2,1,calf,MongabayIndia_1mp4-00015.jpeg:1_2_w

@@ -1,0 +1,7 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,saltyseadog.sydney_1mp4-00002.jpeg:1_2_l,316,314.5,583,-74.729,315.127,2,1,1,1,1,unidentified,
+2,saltyseadog.sydney_1mp4-00002.jpeg:1_2_w,81,316.5,600.5,16.631,80.362,2,1,1,1,1,unidentified,
+3,saltyseadog.sydney_1mp4-00002.jpeg:2_2_l,215,1559.25,694.5,-81.284,214.477,4,1,2,1,1,female,saltyseadog.sydney_1mp4-00002.jpeg:3_2_l
+4,saltyseadog.sydney_1mp4-00002.jpeg:2_2_w,42,1558,720.5,8.326,41.437,4,1,2,1,1,female,saltyseadog.sydney_1mp4-00002.jpeg:3_2_w
+5,saltyseadog.sydney_1mp4-00002.jpeg:3_2_l,133,1607.375,674.75,-97.53,131.635,4,1,2,1,1,calf,saltyseadog.sydney_1mp4-00002.jpeg:2_2_l
+6,saltyseadog.sydney_1mp4-00002.jpeg:3_2_w,33,1604.5,696.75,-8.005,32.315,4,1,2,1,1,calf,saltyseadog.sydney_1mp4-00002.jpeg:2_2_w

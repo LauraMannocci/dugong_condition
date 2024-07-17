@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,HawkeyeTravel1mp4-00690.jpeg:1_4_l,340,607,666,-94.399,338.999,4,1,2,1,1,female ,HawkeyeTravel1mp4-00690.jpeg:2_4_l
+2,HawkeyeTravel1mp4-00690.jpeg:1_4_w,85,611,619.5,-4.764,84.291,4,1,2,1,1,female,HawkeyeTravel1mp4-00690.jpeg:2_4_w
+3,HawkeyeTravel1mp4-00690.jpeg:2_4_l,231,716,710,-88.506,230.078,4,1,2,1,1,calf,HawkeyeTravel1mp4-00690.jpeg:1_4_l
+4,HawkeyeTravel1mp4-00690.jpeg:2_4_w,56,712.5,686,0,55,4,1,2,1,1,calf,HawkeyeTravel1mp4-00690.jpeg:1_4_w

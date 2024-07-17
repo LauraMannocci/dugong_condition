@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:1_4_l,73,673.833,614.583,2.507,72.403,4,1,2,1,1,female,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:2_3_l
+2,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:1_4_w,17,663,614.083,-87.537,15.514,4,1,2,1,1,female ,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:2_3_w
+3,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:2_3_l,50,691.25,633,-3.105,49.239,4,1,2,1,1,calf,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:1_4_l
+4,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:2_3_w,12,686.25,633.083,-92.643,10.845,4,1,2,1,1,calf,MAN_P4_GAM_M1_F2_GSP_DJI_0309_1mp4-00103.jpeg:1_4_w

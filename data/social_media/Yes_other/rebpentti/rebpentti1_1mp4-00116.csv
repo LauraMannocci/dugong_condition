@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,rebpentti1_1mp4-00116.jpeg:6_4_l,260,559.25,825.5,-83.012,258.923,4,1,2,1,1,female ,rebpentti1_1mp4-00116.jpeg:5_5_l
+2,rebpentti1_1mp4-00116.jpeg:6_4_w,62,561.5,859.25,6.082,61.345,4,1,2,1,1,female ,rebpentti1_1mp4-00116.jpeg:5_5_w
+3,rebpentti1_1mp4-00116.jpeg:5_5_l,141,594,791.25,-69.563,140.333,4,1,2,1,1,calf,rebpentti1_1mp4-00116.jpeg:6_4_l
+4,rebpentti1_1mp4-00116.jpeg:5_5_w,36,603.25,809,20.266,34.645,4,1,2,1,1,calf,rebpentti1_1mp4-00116.jpeg:6_4_w

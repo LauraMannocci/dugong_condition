@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,MareCetmp4-00046.jpeg:4_3_l,66,1484.5,918.667,-33.528,65.178,4,1,2,1,1,calf,MareCetmp4-00046.jpeg:5_2_l
+2,MareCetmp4-00046.jpeg:4_3_w,16,1477.167,913.5,56.659,15.162,4,1,2,1,1,calf,MareCetmp4-00046.jpeg:5_2_w
+3,MareCetmp4-00046.jpeg:5_2_l,104,1471.583,934.083,-35.213,102.61,4,1,2,1,1,female,MareCetmp4-00046.jpeg:4_3_l
+4,MareCetmp4-00046.jpeg:5_2_w,24,1459.417,925.75,54.56,22.707,4,1,2,1,1,female,MareCetmp4-00046.jpeg:4_3_w

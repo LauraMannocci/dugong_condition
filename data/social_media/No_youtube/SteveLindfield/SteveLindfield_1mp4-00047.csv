@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,SteveLindfield_1mp4-00047.jpeg:1_3_l,203,1331.5,357.667,12.478,202.107,4,2,8,2,2,female,SteveLindfield_1mp4-00047.jpeg:2_1_l
+2,SteveLindfield_1mp4-00047.jpeg:1_3_w,52,1346,351,-72.041,50.809,4,2,8,2,2,female,SteveLindfield_1mp4-00047.jpeg:2_1_w
+3,SteveLindfield_1mp4-00047.jpeg:2_1_l,226,1332,464.5,22.809,225.283,4,2,8,2,2,calf,SteveLindfield_1mp4-00047.jpeg:1_3_l
+4,SteveLindfield_1mp4-00047.jpeg:2_1_w,50,1362,456.667,-64.654,49.056,4,2,8,2,2,calf,SteveLindfield_1mp4-00047.jpeg:1_3_w

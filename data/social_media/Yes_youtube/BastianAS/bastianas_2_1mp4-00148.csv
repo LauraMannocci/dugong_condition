@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,bastianas_2_1mp4-00148.jpeg:4_5_l,204,943.25,792.25,-58.698,203.058,4,1,8,2,1,female ,bastianas_2_1mp4-00148.jpeg:5_5_l
+2,bastianas_2_1mp4-00148.jpeg:4_5_w,50,953,803.25,28.657,49.003,4,1,8,2,1,female ,bastianas_2_1mp4-00148.jpeg:5_5_w
+3,bastianas_2_1mp4-00148.jpeg:5_5_l,119,874.25,770.5,113.295,117.585,4,1,8,2,1,calf,bastianas_2_1mp4-00148.jpeg:4_5_l
+4,bastianas_2_1mp4-00148.jpeg:5_5_w,29,889,778.75,-155.298,27.518,4,1,8,2,1,calf,bastianas_2_1mp4-00148.jpeg:4_5_w

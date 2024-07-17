@@ -1,0 +1,11 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,whalesharkqa2mp4-00024.jpeg:4_2_l,198,396.5,1240.833,-81.048,197.067,4,1,2,1,1,unidentified,
+2,whalesharkqa2mp4-00024.jpeg:4_2_w,52,390.5,1214.833,9.09,50.636,4,1,2,1,1,unidentified,
+3,whalesharkqa2mp4-00024.jpeg:5_2_l,115,575.583,1025.25,-77.571,113.834,4,1,2,1,1,calf,whalesharkqa2mp4-00024.jpeg:6_1_l
+4,whalesharkqa2mp4-00024.jpeg:5_2_w,30,573.417,1008.5,11.755,29.451,4,1,2,1,1,calf,whalesharkqa2mp4-00024.jpeg:6_1_w
+5,whalesharkqa2mp4-00024.jpeg:6_1_l,214,613,973.5,-89.015,213.365,4,1,2,1,1,female,whalesharkqa2mp4-00024.jpeg:5_2_l
+6,whalesharkqa2mp4-00024.jpeg:6_1_w,55,609.667,949.333,0.356,53.668,4,1,2,1,1,female,whalesharkqa2mp4-00024.jpeg:5_2_w
+7,whalesharkqa2mp4-00024.jpeg:7_1_l,117,324.833,702,-99.408,116.23,4,1,2,1,1,calf,whalesharkqa2mp4-00024.jpeg:8_3_l
+8,whalesharkqa2mp4-00024.jpeg:7_1_w,31,324.25,688.5,-10.755,30.367,4,1,2,1,1,calf,whalesharkqa2mp4-00024.jpeg:8_3_w
+9,whalesharkqa2mp4-00024.jpeg:8_3_l,220,383.667,717,-102.028,219.144,4,1,2,1,1,female,whalesharkqa2mp4-00024.jpeg:7_1_l
+10,whalesharkqa2mp4-00024.jpeg:8_3_w,54,381.5,689.333,-13.51,52.794,4,1,2,1,1,female,whalesharkqa2mp4-00024.jpeg:7_1_w

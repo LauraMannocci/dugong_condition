@@ -1,0 +1,5 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,tamangdugong_1mp4-00111.jpeg:3_5_l,129,1127,695.625,-15.01,128.381,9,1,2,1,1,female ,tamangdugong_1mp4-00111.jpeg:4_5_l
+2,tamangdugong_1mp4-00111.jpeg:3_5_w,33,1147.5,698.375,-104.359,32.258,9,1,2,1,1,female ,tamangdugong_1mp4-00111.jpeg:4_5_w
+3,tamangdugong_1mp4-00111.jpeg:4_5_l,87,1145.75,646.375,-32.996,85.846,9,1,2,1,1,calf,tamangdugong_1mp4-00111.jpeg:3_5_l
+4,tamangdugong_1mp4-00111.jpeg:4_5_w,18,1152.125,653.75,56.083,17.473,9,1,2,1,1,calf,tamangdugong_1mp4-00111.jpeg:3_5_w

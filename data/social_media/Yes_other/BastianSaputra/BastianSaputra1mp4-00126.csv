@@ -1,0 +1,9 @@
+ ,Label,Area,X,Y,Angle,Length,Resolution ,Contrast,Distortion,Partial ,Angle_quality,type_individual,female_calf_couple
+1,BastianSaputra1mp4-00126.jpeg:6_1_l,119,153,360.25,39.307,117.606,9,2,2,1,1,unidentified,
+2,BastianSaputra1mp4-00126.jpeg:6_1_w,27,162.5,347.25,-45.785,25.812,9,2,2,1,1,unidentified,
+3,BastianSaputra1mp4-00126.jpeg:2_2_l,127,284.5,567.333,-2.272,126.099,9,2,2,1,1,unidentified,
+4,BastianSaputra1mp4-00126.jpeg:2_2_w,32,304.167,569.5,-90,30.667,9,2,2,1,1,unidentified,
+5,BastianSaputra1mp4-00126.jpeg:3_2_l,120,1440.167,732.5,-103.333,118.528,9,2,2,1,1,female ,BastianSaputra1mp4-00126.jpeg:4_2_l
+6,BastianSaputra1mp4-00126.jpeg:3_2_w,31,1446.167,725.333,-13.422,30.157,9,2,2,1,1,female ,BastianSaputra1mp4-00126.jpeg:4_2_w
+7,BastianSaputra1mp4-00126.jpeg:4_2_l,72,1476.167,757,-112.599,71.12,9,2,2,1,1,calf,BastianSaputra1mp4-00126.jpeg:3_2_l
+8,BastianSaputra1mp4-00126.jpeg:4_2_w,22,1479.833,749.167,-22.479,20.923,9,2,2,1,1,calf,BastianSaputra1mp4-00126.jpeg:3_2_w
