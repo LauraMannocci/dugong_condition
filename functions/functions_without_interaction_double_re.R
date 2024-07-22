@@ -190,10 +190,31 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   #remove duplicates
   terms_clean = unique(terms_clean)
   
+  #clean labels
+  terms_labels = NA
+  for (i in terms_clean){
+    if (i == "seagrass_patch_number") terms_labels[which(terms_clean == i)] <- "Seagrass patch number"
+    if (i == "percent_seagrass") terms_labels[which(terms_clean == i)] <- "Percentage of seagrass"
+    if (i == "mean_seagrass_patch_area_km2") terms_labels[which(terms_clean == i)] <- "Mean seagrass patch area in km²"
+    if (i == "mean_sst_celsius") terms_labels[which(terms_clean == i)] <- "Mean temperature in °C" 
+    if (i == "mean_turbidity") terms_labels[which(terms_clean == i)] <- "Mean turbidity in FNU"               
+    if (i == "percent_mpas_partial_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of partially protected no-take MPAs" 
+    if (i == "percent_mpas_full_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of fully protected no-take MPAs"
+    if (i == "mean_gravity") terms_labels[which(terms_clean == i)] <- expression("Mean gravity in inhabitants /"~minutes^2)             
+    if (i == "gdp_per_capita") terms_labels[which(terms_clean == i)] <- "GDP per capita in US dollars" 
+  }
+  
+  
+  sjPlot::set_theme(base = ggplot2::theme_classic(), #To remove the background color and the grids
+  axis.title.size = 1.6,  #To change axis title size
+  axis.textsize = 1.2)  #To change y axis text size
+  
   for (i in terms_clean){
     assign(paste0("plot", which(terms_clean == i)), sjPlot::plot_model(model, show.values = TRUE, type = "pred", 
-                                                                       axis.title = c(i, "log(BCI)"), terms = i, title = ""))
+                                                                       axis.title = c(terms_labels[which(terms_clean == i)], "log(BCI)"), terms = i, 
+                                                                       title = "", colors = "gs"))
   }
+  
   if (length(terms_clean) == 2) {
     combined_plot <- gridExtra::grid.arrange(plot1, plot2)
   }
@@ -283,9 +304,28 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   #remove duplicates
   terms_clean = unique(terms_clean)
   
+  #clean labels
+  terms_labels = NA
+  for (i in terms_clean){
+    if (i == "seagrass_patch_number") terms_labels[which(terms_clean == i)] <- "Seagrass patch number"
+    if (i == "percent_seagrass") terms_labels[which(terms_clean == i)] <- "Percentage of seagrass"
+    if (i == "mean_seagrass_patch_area_km2") terms_labels[which(terms_clean == i)] <- "Mean seagrass patch area in km²"
+    if (i == "mean_sst_celsius") terms_labels[which(terms_clean == i)] <- "Mean temperature in °C" 
+    if (i == "mean_turbidity") terms_labels[which(terms_clean == i)] <- "Mean turbidity in FNU"               
+    if (i == "percent_mpas_partial_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of partially protected no-take MPAs" 
+    if (i == "percent_mpas_full_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of fully protected no-take MPAs"
+    if (i == "mean_gravity") terms_labels[which(terms_clean == i)] <- expression("Mean gravity in inhabitants /"~minutes^2)             
+    if (i == "gdp_per_capita") terms_labels[which(terms_clean == i)] <- "GDP per capita in US dollars" 
+  }
+  
+  sjPlot::set_theme(base = ggplot2::theme_classic(), #To remove the background color and the grids
+                    axis.title.size = 1.6,  #To change axis title size
+                    axis.textsize = 1.2)  #To change y axis text size
+  
   for (i in terms_clean){
     assign(paste0("plot", which(terms_clean == i)), sjPlot::plot_model(model, show.values = TRUE, type = "pred", 
-                                                                       axis.title = c(i, "log(BCI)"), terms = i, title = "") +
+                                                                       axis.title = c(terms_labels[which(terms_clean == i)], "log(BCI)"), 
+                                                                       terms = i, title = "", colors = "gs") +
       ggplot2::scale_y_continuous(limits = ylim))
   }
   if (length(terms_clean) == 2) {
@@ -365,7 +405,7 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   #and provides a p-value for the deviation from the expected quantile. The significance of the deviation to the expected quantiles is tested and displayed visually, and can be additionally extracted with the testQuantiles function.
   #https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
   
-  model_diag <- DHARMa::simulateResiduals(model)
+  model_diag <- DHARMa::simulateResiduals(model, n = 500)
   png(here::here(dir_name, paste0("plot_diagnostics_dharma_", model_name, ".png")), width = 900, height = 900)
   plot(model_diag)
   dev.off()
