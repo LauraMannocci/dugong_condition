@@ -394,6 +394,32 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   dev.off()
   
   
+  #------------- Spatial autocorrelation in residuals -------------------
+  #get residuals
+  mod_res <- residuals(model)
+  
+  #make datasets for Moran test
+  tab_mod_res <- cbind(mod_res, dat_final_all_envir_img)
+  names(tab_mod_res) <- c("mod_res", names(dat_final_all_envir_img))
+  df <- data.frame(dat_final_all_envir_img$approx_longitude, dat_final_all_envir_img$approx_latitude)
+  
+  #calculate distance matrix
+  library(geosphere) #for fun = distGeo to work
+  tab_mod_res_dists <- geosphere::distm(df, df, fun = distGeo)
+  
+  #Moran's I Autocorrelation Index
+  moran <- ape::Moran.I(tab_mod_res$mod_res, tab_mod_res_dists, alt = "two.sided") #null hypothesis of no correlation
+  # The null hypothesis of no correlation is tested assuming normality of I under this null hypothesis. If the observed value 
+  # of I is significantly greater than the expected value, then the values of x are positively autocorrelated, whereas if I observed < I expected, 
+  # this will indicate negative autocorrelation.
+  # if pvalue < 0.05 we can reject the null hypothesis that there is zero spatial autocorrelation present in the data
+  # if pvalue > 0.05 we can accept the null hypothesis that there is zero spatial autocorrelation present in the data
+  
+  #save results
+  sink(here::here(dir_name, paste0("moran_autocor_test_", model_name, ".txt")))
+  print(moran)
+  sink(NULL)
+  
   #------------ inference with car::anova --> Wald chisquare test -------------
   #these tables use Wald χ2 statistics for comparisons (neither likelihood ratio tests nor F tests)
   #they apply to the fixed effects of the conditional component of the model only (other components might work, but haven’t been tested)

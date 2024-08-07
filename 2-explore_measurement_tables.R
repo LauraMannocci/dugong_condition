@@ -660,12 +660,16 @@ ggplot2::ggsave(here::here("outputs", "2-explore_measurement_tables", "barplot_m
 count <- as.data.frame(table(dat_final$most_precise_location))
 names(count) <- c("most_precise_location", "Freq")
 
-nb_indiv <- dat_final %>%
+dat_final %>%
+  #replace mtsamboro island by northern islands (Mayotte) due to sensitivity of precise geographic location
+  dplyr::mutate(most_precise_location = dplyr::case_when(most_precise_location == "mtsamboro island" ~ "northern islands", 
+                                                         TRUE ~ most_precise_location))  -> dat_final_sensitive
+nb_indiv <- dat_final_sensitive %>% 
   dplyr::group_by(most_precise_location) %>%
   dplyr::summarise(nb_ind = dplyr::n(),
                    mean_body_condition = mean_body_condition)
 
-dat_final2 <- dplyr::left_join(dat_final, nb_indiv)
+dat_final2 <- dplyr::left_join(dat_final_sensitive, nb_indiv)
 
 ggplot2::ggplot() +
   ggplot2::geom_point(data = dat_final2, ggplot2::aes(x = most_precise_location, y = mean_body_condition), alpha = 0) +

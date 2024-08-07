@@ -410,6 +410,77 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   plot(model_diag)
   dev.off()
   
+
+  
+  #------------- Spatial autocorrelation in residuals -------------------
+  #get residuals
+  mod_res <- residuals(model)
+  
+  #make datasets for Moran test
+  tab_mod_res <- cbind(mod_res, dat_final_all_envir_img)
+  names(tab_mod_res) <- c("mod_res", names(dat_final_all_envir_img))
+  df <- data.frame(dat_final_all_envir_img$approx_longitude, dat_final_all_envir_img$approx_latitude)
+  
+  #calculate distance matrix
+  library(geosphere) #for fun = distGeo to work
+  tab_mod_res_dists <- geosphere::distm(df, df, fun = distGeo)
+  
+  #Moran's I Autocorrelation Index
+  moran <- ape::Moran.I(tab_mod_res$mod_res, tab_mod_res_dists, alt = "two.sided") #null hypothesis of no correlation
+  # The null hypothesis of no correlation is tested assuming normality of I under this null hypothesis. If the observed value 
+  # of I is significantly greater than the expected value, then the values of x are positively autocorrelated, whereas if I observed < I expected, 
+  # this will indicate negative autocorrelation.
+  # if pvalue < 0.05 we can reject the null hypothesis that there is zero spatial autocorrelation present in the data
+  # if pvalue > 0.05 we can accept the null hypothesis that there is zero spatial autocorrelation present in the data
+  
+  #save results
+  sink(here::here(dir_name, paste0("moran_autocor_test_", model_name, ".txt")))
+  print(moran)
+  sink(NULL)
+  
+  #------------- other residual plots (regular residuals, not Dharma) -------------------
+  
+  #histogram
+  png(here::here(dir_name, paste0("histogram_residuals_", model_name, ".png")), width = 900, height = 1300)
+  hist(mod_res, xlab = "", main = "", cex.lab = 1.5, cex.axis = 1.5)
+  dev.off()
+  
+  #map
+  #data manipulation
+  tab_mod_res %>% 
+    #average residuals on lat/lon for improved visualisation
+    dplyr::group_by(approx_longitude, approx_latitude) %>% 
+    dplyr::mutate(mean_mod_res = mean(mod_res)) %>% 
+    #add sign column
+    dplyr::mutate(sign = ifelse(mean_mod_res >= 0, "positive", "negative")) %>% 
+    dplyr::distinct(mean_mod_res, sign) -> tab_mod_res2
+  
+  #load world map
+  #medium resolution
+  world <- rnaturalearth::ne_countries(scale = 'medium',  type = "countries", returnclass = 'sf')
+  
+  #colors
+  cols <- c("positive" = "red", "negative" = "blue")
+  
+  map = 
+    #basemap
+    ggplot2::ggplot(world) + 
+    ggplot2::geom_sf() + 
+    ggplot2::coord_sf(xlim=c(35,166), ylim = c(27, -40)) + #limit to Indo-Pacific
+    ggplot2::scale_x_continuous(breaks = seq(35, 166, by = 10)) + #graduations on x
+    ggplot2::scale_y_continuous(breaks = seq(-40, 27, by = 10)) + #graduations on y
+    #our data as points
+    ggplot2::geom_point(data = tab_mod_res2, ggplot2::aes(approx_longitude, approx_latitude, size = abs(mean_mod_res), color = sign) , alpha = 0.6) +
+    ggplot2::scale_colour_manual(values = cols) +
+    ggplot2::theme(axis.title = ggplot2::element_blank(),
+                   axis.text = ggplot2::element_text(size = 2),
+                   legend.text = ggplot2::element_text(size = 6),
+                   legend.title = ggplot2::element_text(size = 8),
+                   panel.background = ggplot2::element_blank()) +
+    ggplot2::guides(color = ggplot2::guide_legend("Residual sign"), size = ggplot2::guide_legend("Residual absolute value")) #to have one scale
+  
+  ggplot2::ggsave(here::here(dir_name, paste0("map_residuals_", model_name, ".png")), map, width = 7, height = 5)
+  
   
   #------------ inference with car::anova --> Wald chisquare test -------------
   #these tables use Wald χ2 statistics for comparisons (neither likelihood ratio tests nor F tests)

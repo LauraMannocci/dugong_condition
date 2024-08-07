@@ -669,6 +669,7 @@ ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_individual_m
 
 
 ########## MAP ##############################################################
+
 ########maps number of videos per location (proportionals points) ---------------
 vid_dat_final_video <- vid_dat_final %>% 
   dplyr::group_by(approx_latitude, approx_longitude) %>% 
@@ -715,6 +716,39 @@ map <-
 map
 ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_videos_per_location.png"), map, width = 8, height = 6)
 
+
+
+
+########maps number of videos per admin province (proportionals points) ---------------
+vid_dat_final_video_admin <- vid_dat_final %>% 
+  dplyr::group_by(province_admin, lat_province_admin, lon_province_admin) %>% 
+  dplyr::summarise(number_video = sum(number_video)) %>% 
+  dplyr::mutate_at(c('lat_province_admin', 'lon_province_admin'), as.numeric) 
+
+map <- 
+  # basemap
+  ggplot2::ggplot(world) + 
+  ggplot2::geom_sf(fill = "gray93", color = "grey20", size = 0.5) + 
+  ggplot2::geom_sf(data = countries_confirmed_w, fill = "grey40", color = "grey20", size = 0.5) +
+  ggplot2::geom_sf(data = counties_suggested_w, fill = "grey70", color = "grey20", size = 0.5) +
+  ggplot2::coord_sf(xlim=c(34,165), ylim = c(28, -40)) + # limit to Indo-Pacific
+  ggplot2::scale_x_continuous(breaks = seq(34, 165, by = 10)) + 
+  ggplot2::scale_y_continuous(breaks = seq(-40, 28, by = 10)) +
+  ggplot2::theme(axis.text.y = ggplot2::element_text(size = 10)) + 
+  ggplot2::theme(axis.text.x = ggplot2::element_text(size = 10)) + 
+  # our data as points
+  ggplot2::geom_point(data = vid_dat_final_video_admin, 
+                      ggplot2::aes(lon_province_admin, lat_province_admin, size = number_video, color = number_video), alpha = 0.7) +
+  ggplot2::scale_color_continuous(type = "viridis", direction = -1, breaks = seq(1, 13, length.out = 13), limits = c(1, 13)) +
+  ggplot2::scale_size_continuous(breaks = seq(1, 13, length.out = 13), limits = c(1, 13), range = c(3, 9)) +
+  ggplot2::theme(axis.title = ggplot2::element_blank(),
+                 axis.text = ggplot2::element_text(size = 15),
+                 panel.background = ggplot2::element_rect(fill = "white"),
+                 legend.position = "bottom") +
+  ggplot2::guides(color = ggplot2::guide_legend("Number of videos"), size = ggplot2::guide_legend("Number of videos")) #to have one scale
+
+map
+ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_videos_per_province_admin.png"), map, width = 8, height = 6)
 
 
 
