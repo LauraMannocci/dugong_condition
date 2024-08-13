@@ -6,12 +6,13 @@
 #' @param model_name name of GLMM model (character)
 #' @param list_quantitative list quantitative variables in model (list)
 #' @param ylim limit on y axis (vector of 2 numbers)
+#' @param dat_model dataset used for fitting models 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
+produce_model_outputs <- function(model, model_name, list_quantitative, ylim, dat_model){
   
   
   #create model directory  
@@ -51,14 +52,14 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   
   #------------- plot all model coefficients and their significance -------------------
   png(here::here(dir_name, paste0("plot_coef_", model_name, ".png")), width = 900, height = 900)
-  print(sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, width = 0.5, type = "std"))
+  print(sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, width = 0.5, type = "est")) #type = "est" for Forest-plot of estimates (not standardised)
   dev.off()
   
   
   
   
   #------------- plot all model coefficients and their significance for significant terms (p-value < 0,05) -------------------
-  mod_coef <- sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, value.offset = .3, type = "std")
+  mod_coef <- sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, value.offset = .3, type = "est") #type = "est" for Forest-plot of estimates (not standardised)
   
   #select terms with pvalue greater than a significance cutoff
   mod_coef$data %>%
@@ -338,17 +339,23 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   #------------- plot interaction between country and mean_gravity -------------------
   print("*********plot interaction***********")
   png(here::here(dir_name, paste0("plot_interaction_", model_name, ".png")), width = 1000, height = 700)
-  print(interactions::interact_plot(
+  interactions::interact_plot(
     model = model,
     pred = mean_gravity,
     modx = country,
-    plot.points = TRUE,
+    plot.points = FALSE,
     int.type = "prediction",
-    colors = rainbow(length(unique(dat_final_all_envir_img_country_filtered$country))),
-    data = dat_final_all_envir_img_country_filtered
-  ))
+    vary.lty = FALSE,
+    line.thickness = 1.5,
+    colors =  c("#a50026", "#d73027", "#f46d43", "#fdae61", "#fee090", "#e0f3f8", 
+                "#abd9e9", "#74add1", "#4575b4", "#313695"), #color blind friendly palette from https://colorbrewer2.org/#type=diverging&scheme=RdYlBu&n=10
+    data = dat_model) +
+    ggplot2::theme(axis.title = ggplot2::element_text(size = 18),
+                   axis.text = ggplot2::element_text(size = 15),
+                   legend.text = ggplot2::element_text(size = 15),
+                   legend.title = ggplot2::element_text(size = 18))
   dev.off()
-  
+ 
   
   
   
@@ -394,31 +401,6 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   dev.off()
   
   
-  #------------- Spatial autocorrelation in residuals -------------------
-  #get residuals
-  mod_res <- residuals(model)
-  
-  #make datasets for Moran test
-  tab_mod_res <- cbind(mod_res, dat_final_all_envir_img)
-  names(tab_mod_res) <- c("mod_res", names(dat_final_all_envir_img))
-  df <- data.frame(dat_final_all_envir_img$approx_longitude, dat_final_all_envir_img$approx_latitude)
-  
-  #calculate distance matrix
-  library(geosphere) #for fun = distGeo to work
-  tab_mod_res_dists <- geosphere::distm(df, df, fun = distGeo)
-  
-  #Moran's I Autocorrelation Index
-  moran <- ape::Moran.I(tab_mod_res$mod_res, tab_mod_res_dists, alt = "two.sided") #null hypothesis of no correlation
-  # The null hypothesis of no correlation is tested assuming normality of I under this null hypothesis. If the observed value 
-  # of I is significantly greater than the expected value, then the values of x are positively autocorrelated, whereas if I observed < I expected, 
-  # this will indicate negative autocorrelation.
-  # if pvalue < 0.05 we can reject the null hypothesis that there is zero spatial autocorrelation present in the data
-  # if pvalue > 0.05 we can accept the null hypothesis that there is zero spatial autocorrelation present in the data
-  
-  #save results
-  sink(here::here(dir_name, paste0("moran_autocor_test_", model_name, ".txt")))
-  print(moran)
-  sink(NULL)
   
   #------------ inference with car::anova --> Wald chisquare test -------------
   #these tables use Wald χ2 statistics for comparisons (neither likelihood ratio tests nor F tests)

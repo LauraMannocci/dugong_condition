@@ -89,6 +89,8 @@ source(file = here::here("functions", "functions_with_interaction_double_re.R"))
 dat_final_all_envir_img_country_filtered <- dat_final_all_envir_img %>% 
   dplyr::filter(!country %in% c("Mayotte", "Vanuatu", "Papua New Guinea", "Sri Lanka", "Timor-Leste", "Seychelles", "India", "Malaysia"))
 
+#set argument of produce_model_outputs()
+dat_model <- dat_final_all_envir_img_country_filtered
 
 #------- model1inter -------------------
 model1inter <- glmmTMB::glmmTMB(log(body_condition) ~ mean_sst_celsius + mean_turbidity + percent_mpas_full_no_take +
@@ -202,7 +204,7 @@ list_quantitative <- c("gdp_per_capita", "percent_seagrass","mean_turbidity", "p
 
 
 #----------------- call function to produce model outputs -----------------------------------
-produce_model_outputs(model, model_name, list_quantitative, ylim)
+produce_model_outputs(model, model_name, list_quantitative, ylim, dat_model)
 
 
 #nice way to display summary for each model

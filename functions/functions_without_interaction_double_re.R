@@ -5,12 +5,13 @@
 #' @param model_name name of GLMM model (character)
 #' @param list_quantitative list quantitative variables in model (list)
 #' @param ylim limit on y axis (vector of 2 numbers)
+#' @param dat_model dataset used for fitting models 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
+produce_model_outputs <- function(model, model_name, list_quantitative, ylim, dat_model){
   
   
   #create model directory  
@@ -50,14 +51,14 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim){
   
   #------------- plot all model coefficients and their significance -------------------
   png(here::here(dir_name, paste0("plot_coef_", model_name, ".png")), width = 900, height = 900)
-  print(sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, width = 0.5, type = "std"))
+  print(sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, width = 0.5, type = "est")) #type = "est" for Forest-plot of estimates (not standardised)
   dev.off()
   
   
   
   
   #------------- plot all model coefficients and their significance for significant terms (p-value < 0,05) -------------------
-  mod_coef <- sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, value.offset = .3, type = "std")
+  mod_coef <- sjPlot::plot_model(model, sort.est = TRUE, show.values = TRUE, value.offset = .3, type = "est") #type = "est" for Forest-plot of estimates (not standardised)
   
   #select terms with pvalue greater than a significance cutoff
   mod_coef$data %>%

@@ -83,6 +83,9 @@ load("dat_final_all_envir_img.RData")
 #source function
 source(file = here::here("functions", "functions_without_interaction_double_re.R"))
 
+#set argument of produce_model_outputs()
+dat_model <- dat_final_all_envir_img
+
 #mean_sst and gdp_per_capita highly correlated (>0.7)
 #seagrass_patch_number and percent_seagrass highly correlated (>0.7)
 
@@ -205,7 +208,7 @@ list_quantitative <- c("gdp_per_capita", "percent_seagrass","mean_turbidity", "p
 
 
 #----------------- call function to produce outputs for each model -----------------------------------
-produce_model_outputs(model, model_name, list_quantitative, ylim)
+produce_model_outputs(model, model_name, list_quantitative, ylim, dat_model)
 
 
 #nice way to display summary for each model

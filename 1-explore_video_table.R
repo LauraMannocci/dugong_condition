@@ -112,7 +112,7 @@ percent_video_per_social_media <- vid_dat_final %>%
 ggplot2::ggplot(percent_video_per_social_media, ggplot2::aes(fill = social_media, x = country, y = percentage)) +
   ggplot2::geom_bar(stat = "identity", position = "fill") +
   ggplot2::labs(x = "", y = "Percentage of videos", fill = "") +
-  ggplot2::scale_fill_brewer(palette = "Oranges", labels = c("Scientific surveys", "Social media")) +
+  ggplot2::scale_fill_brewer(palette = "Greys", labels = c("Scientific surveys", "Social media")) +
   ggplot2::geom_text(ggplot2::aes(label = paste0(round(percentage), "%")), 
                      position = ggplot2::position_fill(vjust = 0.5), 
                      color = "black", size = 3, fontface = "bold") +
