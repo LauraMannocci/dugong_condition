@@ -1,6 +1,14 @@
 ### AL ###
 outputs
-outputs/
+outputs/ #not pushed due to large size
+
+data/Media_Sorting_Table.xlsx 
+#includes sensitive data not pushed to github
 
 .Rproj.user
 .Rhistory
+.RData  
+#includes sensitive data not pushed to github
+
+1-explore_video_table_sensitive.R  
+#reads sensitive data not pushed to github

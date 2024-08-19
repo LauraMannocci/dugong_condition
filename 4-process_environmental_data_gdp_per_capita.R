@@ -4,9 +4,6 @@ library(magrittr)
 
 
 
-#data we want to extract gdp per capita
-#https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=NC&view=map 
-
 #---------------------------------------------- load dugong observation data ----------------------------------------------------------------------
 
 load("dat_final.RData")

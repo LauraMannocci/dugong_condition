@@ -106,7 +106,7 @@ ggplot2::ggplot(data = mes_dat_final, ggplot2::aes(x = mean_body_condition, y = 
   ggplot2::theme(axis.title = ggplot2::element_text(size = 15),
                  axis.text = ggplot2::element_text(size = 13))
 
-ggplot2::ggsave(here::here("outputs", "10-dugong_measurement_in_meters", "plot_body_condition_pixels_VS_meters.png"), width = 7, height = 5)
+ggplot2::ggsave(here::here("outputs", "10-compare_bci_pixels_meters.R", "plot_body_condition_pixels_VS_meters.png"), width = 7, height = 5)
 
 
 

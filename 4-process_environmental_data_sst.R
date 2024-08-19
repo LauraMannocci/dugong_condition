@@ -4,7 +4,8 @@ library(magrittr)
 
 
 
-#data we want to extract : mean SST in a 26km buffer
+#***IMPORTANT*** because of the absence of geographic coordinates in the original data some of the below analyses will no longer be reproducible
+
 
 
 #---------------------------------------------- load dugong observation data ----------------------------------------------------------------------

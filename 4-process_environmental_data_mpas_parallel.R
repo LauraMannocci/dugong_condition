@@ -3,6 +3,11 @@ library(magrittr)
 library(doParallel)
 
 
+
+#***IMPORTANT*** because of the absence of geographic coordinates in the original data some of the below analyses will no longer be reproducible
+
+
+
 #---------------------------------------------- load and prepare dugong observation data ----------------------------------------------------------------------
 
 load("dat_final.RData")

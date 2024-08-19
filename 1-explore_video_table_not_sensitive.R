@@ -4,8 +4,12 @@ library(magrittr)
 
 
 #read and clean excel table -----------------------------------------------------------------
-#read
-vid_dat <- readxl::read_excel(here::here("data", "Media_Sorting_Table.xlsx"), sheet = "videos")
+#read 
+#***IMPORTANT*** "Media_Sorting_Table.xlsx" includes sensitive data on geographic coordinates of dugongs observations that is not pushed to github
+#***IMPORTANT*** for this reason the non-sensitive equivalent of this file where geographic coordinates have been removed is read
+#***IMPORTANT*** because of the absence of geographic coordinates some outputs and analyses will no longer be reproducible
+
+vid_dat <- readxl::read_excel(here::here("data", "Media_Sorting_Table_no_sensitive_data.xlsx"), sheet = "videos")
 
 #view data structure
 str(vid_dat)
