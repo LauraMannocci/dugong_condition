@@ -7,7 +7,7 @@ data/Media_Sorting_Table.xlsx
 
 .Rproj.user
 .Rhistory
-.RData  
+vid_dat_final.RData
 #includes sensitive data so not pushed to github
 
 1-explore_video_table_sensitive.R  
