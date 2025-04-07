@@ -6,6 +6,7 @@ load("dat_final_gdp_per_capita.RData")
 load("dat_final_gravity.RData")
 load("dat_final_mpas_partial_no_take.RData")
 load("dat_final_mpas_full_no_take.RData")
+load("dat_final_mpas_all.RData")
 library(magrittr)
 
 
@@ -47,6 +48,11 @@ dat_final_mpas_full_no_take <- dat_final_mpas_full_no_take %>%
   dplyr::filter(!(video_name_long == "FaisalAljarkas.mp4" & indiv_number == 3 & type_individual == "unidentified")) %>% 
   dplyr::filter(!(video_name_long == "FaisalAljarkas.mp4" & indiv_number == 2 & type_individual == "female"))
 
+dat_final_mpas_all <- dat_final_mpas_all %>% 
+  dplyr::filter(!(video_name_long == "GH034215_1.mp4" & indiv_number == 7 & type_individual == "female")) %>% 
+  dplyr::filter(!(video_name_long == "FaisalAljarkas.mp4" & indiv_number == 3 & type_individual == "unidentified")) %>% 
+  dplyr::filter(!(video_name_long == "FaisalAljarkas.mp4" & indiv_number == 2 & type_individual == "female"))
+
 
 #------------------------------------------------- join all dat_final in same data --------------------------------------
 
@@ -54,7 +60,7 @@ all_columns <- c("type_individual", "social_media", "video_owner", "owner_type",
                  "publication_date", "collection_date", "overall_location", "country", "most_precise_location", 
                  "approx_latitude", "approx_longitude", "localisation_precision", "number_individual_measured", "video_width",
                  "video_height", "same_individual_measured", "collection_year", "publication_year", "collection_month", 
-                 "publication_month", "iucn_status", "province_marsh", "province_admin", "lat_province_admin", 
+                 "publication_month", "iucn_status", "genetic_cluster","province_marsh", "province_admin", "lat_province_admin", 
                  "lon_province_admin", 
                  "young_identification", "video_name_long", "indiv_number", "nb_indiv_replicate", "mean_body_condition",
                  "sd_body_condition", "mean_resolution", "mean_contrast", "mean_distortion", "mean_partial", 
@@ -69,6 +75,7 @@ dat_final_all_envir <- dat_final_seagrass %>%
   dplyr::left_join(dat_final_gravity, by = all_columns) %>% 
   dplyr::left_join(dat_final_mpas_partial_no_take, by = all_columns) %>% 
   dplyr::left_join(dat_final_mpas_full_no_take, by = all_columns) %>% 
+  dplyr::left_join(dat_final_mpas_all, by = all_columns) %>% 
   dplyr::left_join(dat_final_turbidity, by = all_columns)
   
 
@@ -87,6 +94,10 @@ dat_final_all_envir <- dat_final_all_envir %>%
   dplyr::mutate(percent_mpas_partial_no_take_new = ifelse(percent_mpas_partial_no_take > 100, 100, percent_mpas_partial_no_take)) %>% 
   dplyr::select(-percent_mpas_partial_no_take) %>%  
   dplyr::rename(percent_mpas_partial_no_take = "percent_mpas_partial_no_take_new") %>% 
+  #cleaning of percent_mpas_all
+  dplyr::mutate(percent_mpas_all_new = ifelse(percent_mpas_all > 100, 100, percent_mpas_all)) %>% 
+  dplyr::select(-percent_mpas_all) %>%  
+  dplyr::rename(percent_mpas_all = "percent_mpas_all_new") %>% 
   dplyr::mutate(id = dplyr::row_number()) %>% 
   dplyr::select(id, social_media, video_name_long, video_owner, owner_type, source, 
                 publication_date, collection_date, collection_year, publication_year, collection_month, 
@@ -100,12 +111,45 @@ dat_final_all_envir <- dat_final_all_envir %>%
                 type_individual_refined, type_stage, number_individual_measured, 
                 indiv_number, nb_indiv_replicate, same_individual_measured, sum_seagrass_area_km2,
                 mean_seagrass_patch_area_km2, seagrass_patch_number, percent_seagrass, mean_sst_celsius,
-                gdp_per_capita, mean_gravity, sum_mpas_partial_no_take_area_km2, 
-                percent_mpas_partial_no_take, sum_mpas_full_no_take_area_km2, percent_mpas_full_no_take, 
-                mean_turbidity, buffer_area_km2) %>% 
-  dplyr::filter(is.na(mean_turbidity) == FALSE)
+                gdp_per_capita, mean_gravity, sum_mpas_partial_no_take_area_km2, percent_mpas_partial_no_take, 
+                sum_mpas_full_no_take_area_km2, percent_mpas_full_no_take, 
+                sum_mpas_all_area_km2, percent_mpas_all, 
+                mean_turbidity) 
 
-  
+
+
+#------------------------------------------ add gdp per capita at provincial level
+
+dat_final_all_envir %>% 
+  dplyr::mutate(gdp_per_capita_province = dplyr::case_when(province_admin == "west papua" ~ 7092,
+                                                           province_admin == "whitsunday region" ~ 160709,
+                                                           province_admin == "trang province" ~ 3767,
+                                                           province_admin == "tabuk province" ~ 32094,
+                                                           province_admin == "sulawesi tengah" ~ 7378,
+                                                           province_admin == "southeast sulawesi" ~ 4205,
+                                                           province_admin == "south province new caledonia" ~ 33516,
+                                                           province_admin == "south east queensland region" ~ 48829 ,
+                                                           province_admin == "south davao" ~ 3654,
+                                                           province_admin == "qatar" ~ 80196,
+                                                           province_admin == "al-shahaniya" ~ 80196,
+                                                           province_admin == "palawan province" ~ 2418,
+                                                           province_admin == "palau" ~ 15899,
+                                                           province_admin == "north sulawesi" ~ 4207,
+                                                           province_admin == "kimberley region" ~ 73272,
+                                                           province_admin == "inhambane" ~ 496,
+                                                           province_admin == "gascoyne region" ~ 83404,
+                                                           province_admin == "far north queensland region" ~ 44922,
+                                                           province_admin == "east nusa tenggara" ~ 1514,
+                                                           province_admin == "east java" ~ 4667,
+                                                           province_admin == "bundaberg province" ~ 48498,
+                                                           province_admin == "bali" ~ 4087,
+                                                           province_admin == "abu dhabi" ~ 84900,
+                                                           province_admin == "johor" ~ 9434,
+                                                           TRUE ~ NA)) -> dat_final_all_envir
+                                                           
+                                                           
+
+
 save(dat_final_all_envir, file = "dat_final_all_envir.RData")
 
 
@@ -449,8 +493,9 @@ ggplot2::ggsave(here::here("outputs", "6-merge_explore_environmental_dat_final",
 #----------------------------------------------- prepare all pca ---------------------------
 ############ Correlation matrix
 dat_envir <- dat_final_all_envir %>% 
-  dplyr::select(c(mean_seagrass_patch_area_km2, seagrass_patch_number, percent_seagrass, mean_sst_celsius, gdp_per_capita, mean_gravity, 
-                  percent_mpas_partial_no_take, percent_mpas_full_no_take, mean_turbidity))
+  dplyr::select(c(mean_seagrass_patch_area_km2, seagrass_patch_number, percent_seagrass, mean_sst_celsius, gdp_per_capita, gdp_per_capita_province, mean_gravity, 
+                  percent_mpas_partial_no_take, percent_mpas_full_no_take, percent_mpas_all, mean_turbidity)) %>% 
+  na.omit()
 
 #Computing correlation matrix
 matrix_cor_envir <- stats::cor(dat_envir)

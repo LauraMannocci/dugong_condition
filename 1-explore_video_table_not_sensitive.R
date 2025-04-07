@@ -755,6 +755,29 @@ map
 ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_videos_per_province_admin.png"), map, width = 8, height = 6)
 
 
+########maps number of videos per admin province (proportionals points one color) ---------------
+map <- 
+  # basemap
+  ggplot2::ggplot(world) + 
+  ggplot2::geom_sf(fill = "gray93", color = "grey20", size = 0.5) + 
+  ggplot2::geom_sf(data = countries_confirmed_w, fill = "grey40", color = "grey20", size = 0.5) +
+  ggplot2::geom_sf(data = counties_suggested_w, fill = "grey70", color = "grey20", size = 0.5) +
+  ggplot2::coord_sf(xlim=c(34,165), ylim = c(28, -40)) + # limit to Indo-Pacific
+  ggplot2::scale_x_continuous(breaks = seq(34, 165, by = 10)) + 
+  ggplot2::scale_y_continuous(breaks = seq(-40, 28, by = 10)) +
+  # our data as points
+  ggplot2::geom_point(data = vid_dat_final_video_admin, 
+                      ggplot2::aes(lon_province_admin, lat_province_admin, size = number_video), color = "dark orange", alpha = 0.7) +
+  ggplot2::scale_size_continuous(breaks = c(1,4,8,13), limits = c(1, 13), name = "Number of videos") +
+  ggplot2::theme(axis.title = ggplot2::element_blank(),
+                 axis.text = ggplot2::element_text(size = 6),
+                 panel.background = ggplot2::element_rect(fill = "white"),
+                 legend.position = "bottom",
+                 legend.key = ggplot2::element_blank()) 
+
+map
+ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_videos_per_province_admin_one_color.png"), map, width = 8, height = 6)
+
 
 ########maps number individuals measured per location (proportionals points) ---------------
 vid_dat_final_ind_measured_loc <- vid_dat_final %>% 
@@ -786,6 +809,34 @@ map <-
 
 map
 ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_individual_measured_per_location.png"), map, width = 8, height = 6)
+
+
+########maps number individuals measured per location (proportionals points one color) ---------------
+vid_dat_final_ind_measured_loc <- vid_dat_final %>% 
+  dplyr::group_by(approx_latitude, approx_longitude) %>% 
+  dplyr::summarise(number_individual_measured = sum(number_individual_measured))
+
+map <- 
+  
+  # basemap
+  ggplot2::ggplot(world) + 
+  ggplot2::geom_sf(fill = "gray93", color = "grey20", size = 0.5) + 
+  ggplot2::geom_sf(data = countries_confirmed_w, fill = "grey40", color = "grey20", size = 0.5) +
+  ggplot2::geom_sf(data = counties_suggested_w, fill = "grey70", color = "grey20", size = 0.5) +
+  ggplot2::coord_sf(xlim=c(34,165), ylim = c(28, -40)) + # limit to Indo-Pacific
+  ggplot2::scale_x_continuous(breaks = seq(34, 165, by = 10)) + 
+  ggplot2::scale_y_continuous(breaks = seq(-40, 28, by = 10)) + 
+  # our data as points
+  ggplot2::geom_point(data = vid_dat_final_ind_measured_loc, 
+                      ggplot2::aes(approx_longitude, approx_latitude, size = number_individual_measured), color = "dark orange", alpha = 0.7) +
+  ggplot2::scale_size_continuous(breaks = c(1, 4, 8, 16, 20, 23), name = "Number of individuals measured") +
+  ggplot2::theme(axis.title = ggplot2::element_blank(),
+                 axis.text = ggplot2::element_text(size = 7),
+                 panel.background = ggplot2::element_rect(fill = "white"),
+                 legend.position = "bottom",
+                 legend.key = ggplot2::element_blank()) 
+map
+ggplot2::ggsave(here::here("outputs", "1-explore_video_table", "map_individual_measured_per_location_one_color.png"), map, width = 8, height = 6)
 
 
 

@@ -1,5 +1,26 @@
-#Run the scripts in the following order
-#Each script generates its specific outputs and RData objects (to be read by subsequent scripts)
+
+#Input data are located at:
+
+#- data/Media_Sorting_Table_no_sensitive_data.xlsx: VIDEO DATA 
+#table listing all videos of dugongs. 
+#In this xlsx file, each line represents one video of dugongs and their associated metadata. 
+#NB: The specific geographic locations of dugong videos have been excluded from the data as they represent sensitive information.
+
+#- data/social_media: IMAGE DATA
+#each subfolder includes individual csv files corresponding to images. 
+#Each csv file is named after the name of the image it describes. In each of these csv files, 
+#each line of the table represent a measurement of a dugong (l for straight length and w for maximum width)
+#on the given image with associated information on image quality and individual class. 
+#the column label includes the individual identifier.
+
+#- data/envir_data: ENVIRONMENTAL DATA
+#each subfolder represents the data for extracting the different environmental variables used in the analysis.
+#data/region_rdata.ods contains geographical bounding boxes to ease the extraction of environmental data.
+
+
+#To reproduce the analysis, run the scripts in the following order
+#Note that each script generates its specific outputs and RData objects (to be read by subsequent scripts)
+
 
 source("1-explore_video_table_not_sensitive.R") #reads and explores the video metadata (NB: sensitive data on gepgraphic coordinates have been removed from the input file)
 

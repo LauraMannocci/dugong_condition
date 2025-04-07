@@ -1,6 +1,5 @@
 
-#' Function to produce model outputs for GLMM with interaction (gravity / country) with double random effects (the discrete variable is turned into a re)
-#'
+#' Function to produce model outputs for GLMM without interaction with double random effects (the discrete variable is turned into a re)
 #'
 #' @param model GLMM model (R object)
 #' @param model_name name of GLMM model (character)
@@ -16,7 +15,7 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   
   
   #create model directory  
-  dir_name <- here::here("outputs", "7-join_explore_environmental_mes_dat_final_img_with_interaction_double_re", model_name)
+  dir_name <- here::here("outputs", "7-join_explore_environmental_mes_dat_final_img", model_name)
   if (dir.exists(dir_name) == TRUE){
     unlink(dir_name, recursive = TRUE, force = TRUE)
   }
@@ -97,8 +96,17 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   #------------- plot marginal effects per quantitative term (different y scale) -------------------
   print("*********plot marginal effects per quantitative term***********")
   for (i in list_quantitative){
-    assign(paste0("plot", which(list_quantitative == i)), sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "log(BCI)"),
-                                                                             type = "pred", terms = i, title = ""))
+    assign(paste0("plot", which(list_quantitative == i)), sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                                                             type = "pred", terms = i, title = "", color = "grey10"))
+  }
+  if (length(list_quantitative) == 3) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3)
+  }
+  if (length(list_quantitative) == 4) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
+  }
+  if (length(list_quantitative) == 5) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5)
   }
   if (length(list_quantitative) == 6) {
     combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6)
@@ -114,6 +122,7 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   png(here::here(dir_name, paste0("plot_marginal_effect_quantitative_", model_name, "_different_yscale.png")), width = 900, height = 900)
   plot(combined_plot)
   dev.off()
+  
 
   
   
@@ -121,8 +130,17 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   print("*********plot marginal effects per quantitative term***********")
   for (i in list_quantitative){
     assign(paste0("plot", which(list_quantitative == i)), sjPlot::plot_model(model, show.values = TRUE, 
-                                                                             axis.title = c(i, "log(BCI)"), type = "pred", term = i, title = "") +
+                                                                             axis.title = c(i, "BCI"), type = "pred", term = i, title = "", color = "grey10") +
              ggplot2::scale_y_continuous(limits = ylim))
+  }
+  if (length(list_quantitative) == 3) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3)
+  }
+  if (length(list_quantitative) == 4) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
+  }
+  if (length(list_quantitative) == 5) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5)
   }
   if (length(list_quantitative) == 6) {
     combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6)
@@ -138,7 +156,6 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   png(here::here(dir_name, paste0("plot_marginal_effect_quantitative_", model_name, "_same_yscale.png")), width = 900, height = 900)
   plot(combined_plot)
   dev.off()
-  
   
   
   
@@ -173,10 +190,12 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
     if(terms[j] == "poly(percent_mpas_partial_no_take, 2)2") {terms_clean[j] = "percent_mpas_partial_no_take"}
     if(terms[j] == "poly(percent_mpas_full_no_take, 2)1") {terms_clean[j] = "percent_mpas_full_no_take"}
     if(terms[j] == "poly(percent_mpas_full_no_take, 2)2") {terms_clean[j] = "percent_mpas_full_no_take"}
+    if(terms[j] == "poly(percent_mpas_all, 2)1") {terms_clean[j] = "percent_mpas_all"}
+    if(terms[j] == "poly(percent_mpas_all, 2)2") {terms_clean[j] = "percent_mpas_all"}
     if(terms[j] == "poly(mean_gravity, 2)1") {terms_clean[j] = "mean_gravity"}
     if(terms[j] == "poly(mean_gravity, 2)2") {terms_clean[j] = "mean_gravity"}
-    if(terms[j] == "poly(gdp_per_capita, 2)1") {terms_clean[j] = "gdp_per_capita"}
-    if(terms[j] == "poly(gdp_per_capita, 2)2") {terms_clean[j] = "gdp_per_capita"}
+    if(terms[j] == "poly(gdp_per_capita_province, 2)1") {terms_clean[j] = "gdp_per_capita_province"}
+    if(terms[j] == "poly(gdp_per_capita_province, 2)2") {terms_clean[j] = "gdp_per_capita_province"}
     if(terms[j] == "poly(mean_sst_celsius, 2)1") {terms_clean[j] = "mean_sst_celsius"}
     if(terms[j] == "poly(mean_sst_celsius, 2)2") {terms_clean[j] = "mean_sst_celsius"}
     if(terms[j] == "poly(mean_seagrass_patch_area_km2, 2)1") {terms_clean[j] = "mean_seagrass_patch_area_km2"}
@@ -185,20 +204,39 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
     if(terms[j] == "poly(seagrass_patch_number, 2)2") {terms_clean[j] = "seagrass_patch_number"}
     if(terms[j] == "poly(percent_seagrass, 2)1") {terms_clean[j] = "percent_seagrass"}
     if(terms[j] == "poly(percent_seagrass, 2)2") {terms_clean[j] = "percent_seagrass"}
-    if(terms[j] %in% c("mean_turbidity", "percent_mpas_partial_no_take", "percent_mpas_full_no_take", "mean_gravity", 
-                       "gdp_per_capita", "mean_sst_celsius", "mean_seagrass_patch_area_km2", "seagrass_patch_number", "percent_seagrass")) {terms_clean[j] = terms[j]}
+    if(terms[j] %in% c("mean_turbidity", "percent_mpas_partial_no_take", "percent_mpas_full_no_take", "percent_mpas_all", "mean_gravity", 
+                       "gdp_per_capita_province", "mean_sst_celsius", "mean_seagrass_patch_area_km2", "seagrass_patch_number", "percent_seagrass")) {terms_clean[j] = terms[j]}
   }
   
   #remove duplicates
   terms_clean = unique(terms_clean)
   
+  #clean labels
+  terms_labels = NA
+  for (i in terms_clean){
+    if (i == "seagrass_patch_number") terms_labels[which(terms_clean == i)] <- "Seagrass patch number"
+    if (i == "percent_seagrass") terms_labels[which(terms_clean == i)] <- "Percentage of seagrass"
+    if (i == "mean_seagrass_patch_area_km2") terms_labels[which(terms_clean == i)] <- "Mean seagrass patch area in km²"
+    if (i == "mean_sst_celsius") terms_labels[which(terms_clean == i)] <- "Mean temperature in °C" 
+    if (i == "mean_turbidity") terms_labels[which(terms_clean == i)] <- "Mean turbidity in FNU"               
+    if (i == "percent_mpas_partial_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of partially protected no-take MPAs" 
+    if (i == "percent_mpas_full_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of fully protected no-take MPAs"
+    if (i == "percent_mpas_all") terms_labels[which(terms_clean == i)] <- "Percentage of MPAs"
+    if (i == "mean_gravity") terms_labels[which(terms_clean == i)] <- expression("Mean gravity in inhabitants /"~minutes^2)             
+    if (i == "gdp_per_capita_province") terms_labels[which(terms_clean == i)] <- "GDP per capita in US dollars" 
+  }
+  
+  
+  sjPlot::set_theme(base = ggplot2::theme_classic(), #To remove the background color and the grids
+  axis.title.size = 1.6,  #To change axis title size
+  axis.textsize = 1.2)  #To change y axis text size
+  
   for (i in terms_clean){
     assign(paste0("plot", which(terms_clean == i)), sjPlot::plot_model(model, show.values = TRUE, type = "pred", 
-                                                                       axis.title = c(i, "log(BCI)"), terms = i, title = ""))
+                                                                       axis.title = c(terms_labels[which(terms_clean == i)], "BCI"), terms = i, 
+                                                                       title = "", colors = "gs"))
   }
-  if (length(terms_clean) == 1) {
-    combined_plot <- gridExtra::grid.arrange(plot1)
-  }
+  
   if (length(terms_clean) == 2) {
     combined_plot <- gridExtra::grid.arrange(plot1, plot2)
   }
@@ -269,10 +307,12 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
     if(terms[j] == "poly(percent_mpas_partial_no_take, 2)2") {terms_clean[j] = "percent_mpas_partial_no_take"}
     if(terms[j] == "poly(percent_mpas_full_no_take, 2)1") {terms_clean[j] = "percent_mpas_full_no_take"}
     if(terms[j] == "poly(percent_mpas_full_no_take, 2)2") {terms_clean[j] = "percent_mpas_full_no_take"}
+    if(terms[j] == "poly(percent_mpas_all, 2)1") {terms_clean[j] = "percent_mpas_all"}
+    if(terms[j] == "poly(percent_mpas_all, 2)2") {terms_clean[j] = "percent_mpas_all"}
     if(terms[j] == "poly(mean_gravity, 2)1") {terms_clean[j] = "mean_gravity"}
     if(terms[j] == "poly(mean_gravity, 2)2") {terms_clean[j] = "mean_gravity"}
-    if(terms[j] == "poly(gdp_per_capita, 2)1") {terms_clean[j] = "gdp_per_capita"}
-    if(terms[j] == "poly(gdp_per_capita, 2)2") {terms_clean[j] = "gdp_per_capita"}
+    if(terms[j] == "poly(gdp_per_capita_province, 2)1") {terms_clean[j] = "gdp_per_capita_province"}
+    if(terms[j] == "poly(gdp_per_capita_province, 2)2") {terms_clean[j] = "gdp_per_capita_province"}
     if(terms[j] == "poly(mean_sst_celsius, 2)1") {terms_clean[j] = "mean_sst_celsius"}
     if(terms[j] == "poly(mean_sst_celsius, 2)2") {terms_clean[j] = "mean_sst_celsius"}
     if(terms[j] == "poly(mean_seagrass_patch_area_km2, 2)1") {terms_clean[j] = "mean_seagrass_patch_area_km2"}
@@ -281,20 +321,37 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
     if(terms[j] == "poly(seagrass_patch_number, 2)2") {terms_clean[j] = "seagrass_patch_number"}
     if(terms[j] == "poly(percent_seagrass, 2)1") {terms_clean[j] = "percent_seagrass"}
     if(terms[j] == "poly(percent_seagrass, 2)2") {terms_clean[j] = "percent_seagrass"}
-    if(terms[j] %in% c("mean_turbidity", "percent_mpas_partial_no_take", "percent_mpas_full_no_take", "mean_gravity", 
-                       "gdp_per_capita", "mean_sst_celsius", "mean_seagrass_patch_area_km2", "seagrass_patch_number", "percent_seagrass")) {terms_clean[j] = terms[j]}
+    if(terms[j] %in% c("mean_turbidity", "percent_mpas_partial_no_take", "percent_mpas_full_no_take", "percent_mpas_all", "mean_gravity", 
+                       "gdp_per_capita_province", "mean_sst_celsius", "mean_seagrass_patch_area_km2", "seagrass_patch_number", "percent_seagrass")) {terms_clean[j] = terms[j]}
   }
   
   #remove duplicates
   terms_clean = unique(terms_clean)
   
+  #clean labels
+  terms_labels = NA
+  for (i in terms_clean){
+    if (i == "seagrass_patch_number") terms_labels[which(terms_clean == i)] <- "Seagrass patch number"
+    if (i == "percent_seagrass") terms_labels[which(terms_clean == i)] <- "Percentage of seagrass"
+    if (i == "mean_seagrass_patch_area_km2") terms_labels[which(terms_clean == i)] <- "Mean seagrass patch area in km²"
+    if (i == "mean_sst_celsius") terms_labels[which(terms_clean == i)] <- "Mean temperature in °C" 
+    if (i == "mean_turbidity") terms_labels[which(terms_clean == i)] <- "Mean turbidity in FNU"               
+    if (i == "percent_mpas_partial_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of partially protected no-take MPAs" 
+    if (i == "percent_mpas_full_no_take") terms_labels[which(terms_clean == i)] <- "Percentage of fully protected no-take MPAs"
+    if (i == "percent_mpas_all") terms_labels[which(terms_clean == i)] <- "Percentage of MPAs"
+    if (i == "mean_gravity") terms_labels[which(terms_clean == i)] <- expression("Mean gravity in inhabitants /"~minutes^2)             
+    if (i == "gdp_per_capita_province") terms_labels[which(terms_clean == i)] <- "GDP per capita in US dollars" 
+  }
+  
+  sjPlot::set_theme(base = ggplot2::theme_classic(), #To remove the background color and the grids
+                    axis.title.size = 1.6,  #To change axis title size
+                    axis.textsize = 1.2)  #To change y axis text size
+  
   for (i in terms_clean){
     assign(paste0("plot", which(terms_clean == i)), sjPlot::plot_model(model, show.values = TRUE, type = "pred", 
-                                                                       axis.title = c(i, "log(BCI)"), terms = i, title = "") +
-             ggplot2::scale_y_continuous(limits = ylim))
-  }
-  if (length(terms_clean) == 1) {
-    combined_plot <- gridExtra::grid.arrange(plot1)
+                                                                       axis.title = c(terms_labels[which(terms_clean == i)], "BCI"), 
+                                                                       terms = i, title = "", colors = "gs") +
+      ggplot2::scale_y_continuous(limits = ylim))
   }
   if (length(terms_clean) == 2) {
     combined_plot <- gridExtra::grid.arrange(plot1, plot2)
@@ -326,7 +383,7 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   if (length(terms_clean) == 11) {
     combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, plot7, plot8, plot9, plot10, plot11)
   }
-  
+
   #to remove grey background
   combined_plot <- cowplot::ggdraw(combined_plot) + 
     ggplot2::theme(plot.background = ggplot2::element_rect(fill="white", color = NA))
@@ -335,28 +392,6 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   plot(combined_plot)
   dev.off()
 
-  
-  #------------- plot interaction between country and mean_gravity -------------------
-  print("*********plot interaction***********")
-  png(here::here(dir_name, paste0("plot_interaction_", model_name, ".png")), width = 1000, height = 700)
-  interactions::interact_plot(
-    model = model,
-    pred = mean_gravity,
-    modx = country,
-    plot.points = FALSE,
-    int.type = "prediction",
-    vary.lty = FALSE,
-    line.thickness = 1.5,
-    colors =  c("#a50026", "#d73027", "#f46d43", "#fdae61", "#fee090", "#e0f3f8", 
-                "#abd9e9", "#74add1", "#4575b4", "#313695"), #color blind friendly palette from https://colorbrewer2.org/#type=diverging&scheme=RdYlBu&n=10
-    data = dat_model) +
-    ggplot2::theme(axis.title = ggplot2::element_text(size = 18),
-                   axis.text = ggplot2::element_text(size = 15),
-                   legend.text = ggplot2::element_text(size = 15),
-                   legend.title = ggplot2::element_text(size = 18))
-  dev.off()
- 
-  
   
   
   #------------- model diagnostics -------------------
@@ -367,7 +402,7 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   plot4 <- sjPlot::plot_model(model, show.values = TRUE, type = "diag")[[4]]
   
   png(here::here(dir_name, paste0("plot_diagnostics_", model_name, ".png")), width = 900, height = 900)
-  combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
+  combined_plot <- gridExtra::grid.arrange(plot1, plot3, plot4)
   dev.off()
   
   
@@ -395,11 +430,81 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   #and provides a p-value for the deviation from the expected quantile. The significance of the deviation to the expected quantiles is tested and displayed visually, and can be additionally extracted with the testQuantiles function.
   #https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
   
-  model_diag <- DHARMa::simulateResiduals(model)
+  model_diag <- DHARMa::simulateResiduals(model, n = 500)
   png(here::here(dir_name, paste0("plot_diagnostics_dharma_", model_name, ".png")), width = 900, height = 900)
   plot(model_diag)
   dev.off()
   
+
+  
+  #------------- Spatial autocorrelation in residuals -------------------
+  #get residuals
+  mod_res <- residuals(model)
+  
+  #make datasets for Moran test
+  tab_mod_res <- cbind(mod_res, dat_model)
+  names(tab_mod_res) <- c("mod_res", names(dat_model))
+  df <- data.frame(dat_model$approx_longitude, dat_model$approx_latitude)
+  
+  #calculate distance matrix
+  library(geosphere) #for fun = distGeo to work
+  tab_mod_res_dists <- geosphere::distm(df, df, fun = distGeo)
+  
+  #Moran's I Autocorrelation Index
+  moran <- ape::Moran.I(tab_mod_res$mod_res, tab_mod_res_dists, alt = "two.sided") #null hypothesis of no correlation
+  # The null hypothesis of no correlation is tested assuming normality of I under this null hypothesis. If the observed value 
+  # of I is significantly greater than the expected value, then the values of x are positively autocorrelated, whereas if I observed < I expected, 
+  # this will indicate negative autocorrelation.
+  # if pvalue < 0.05 we can reject the null hypothesis that there is zero spatial autocorrelation present in the data
+  # if pvalue > 0.05 we can accept the null hypothesis that there is zero spatial autocorrelation present in the data
+  
+  #save results
+  sink(here::here(dir_name, paste0("moran_autocor_test_", model_name, ".txt")))
+  print(moran)
+  sink(NULL)
+  
+  #------------- other residual plots (regular residuals, not Dharma) -------------------
+  
+  #histogram
+  png(here::here(dir_name, paste0("histogram_residuals_", model_name, ".png")), width = 900, height = 1300)
+  hist(mod_res, xlab = "", main = "", cex.lab = 1.5, cex.axis = 1.5)
+  dev.off()
+  
+  #map
+  #data manipulation
+  tab_mod_res %>% 
+    #average residuals on lat/lon for improved visualisation
+    dplyr::group_by(approx_longitude, approx_latitude) %>% 
+    dplyr::mutate(mean_mod_res = mean(mod_res)) %>% 
+    #add sign column
+    dplyr::mutate(sign = ifelse(mean_mod_res >= 0, "positive", "negative")) %>% 
+    dplyr::distinct(mean_mod_res, sign) -> tab_mod_res2
+  
+  #load world map
+  #medium resolution
+  world <- rnaturalearth::ne_countries(scale = 'medium',  type = "countries", returnclass = 'sf')
+  
+  #colors
+  cols <- c("positive" = "red", "negative" = "blue")
+  
+  map = 
+    #basemap
+    ggplot2::ggplot(world) + 
+    ggplot2::geom_sf() + 
+    ggplot2::coord_sf(xlim=c(35,166), ylim = c(27, -40)) + #limit to Indo-Pacific
+    ggplot2::scale_x_continuous(breaks = seq(35, 166, by = 10)) + #graduations on x
+    ggplot2::scale_y_continuous(breaks = seq(-40, 27, by = 10)) + #graduations on y
+    #our data as points
+    ggplot2::geom_point(data = tab_mod_res2, ggplot2::aes(approx_longitude, approx_latitude, size = abs(mean_mod_res), color = sign) , alpha = 0.6) +
+    ggplot2::scale_colour_manual(values = cols) +
+    ggplot2::theme(axis.title = ggplot2::element_blank(),
+                   axis.text = ggplot2::element_text(size = 2),
+                   legend.text = ggplot2::element_text(size = 6),
+                   legend.title = ggplot2::element_text(size = 8),
+                   panel.background = ggplot2::element_blank()) +
+    ggplot2::guides(color = ggplot2::guide_legend("Residual sign"), size = ggplot2::guide_legend("Residual absolute value")) #to have one scale
+  
+  ggplot2::ggsave(here::here(dir_name, paste0("map_residuals_", model_name, ".png")), map, width = 7, height = 5)
   
   
   #------------ inference with car::anova --> Wald chisquare test -------------

@@ -6,25 +6,35 @@ library(magrittr)
 #------------check significance of BCI between countries------------------------
 load("dat_final.RData")
 
+#select countries with at least 10 observations
+
+dat_final %>% 
+  dplyr::group_by(country) %>% 
+  dplyr::summarise(n = dplyr::n()) %>% 
+  dplyr::filter(n >= 10) %>% 
+  dplyr::select(country) -> countries
+
+dat_final %>% 
+  dplyr::filter(country %in% countries$country) -> dat_final2
 
 #ANOVA - parametric
-anova_BCI_country <- aov(mean_body_condition ~ country, data = dat_final)
+anova_BCI_country <- aov(mean_body_condition ~ country, data = dat_final2)
 summary(anova_BCI_country) #significant ***
 
 #SHAPIRO - normality test 
 residuals <- residuals(anova_BCI_country)
-shapiro.test(residuals) #p-value > 0.05; W = 0.98773, p-value = 0.03203 
-levene_test <- car::leveneTest(mean_body_condition ~ country, data = dat_final)
+shapiro.test(residuals) #p-value > 0.05; W = 0.98579, p-value = 0.01651
+levene_test <- car::leveneTest(mean_body_condition ~ country, data = dat_final2)
 print(levene_test) #p-value = 0.07
 #non normal distribution
 
 
 #Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ country, data = dat_final)
-print(kruskal_test) #Kruskal-Wallis chi-squared = 94.373, df = 17, p-value = 9.7e-13 --> significant
+kruskal_test <- kruskal.test(mean_body_condition ~ country, data = dat_final2)
+print(kruskal_test) #Kruskal-Wallis chi-squared = 76.398, df = 9, p-value = 8.366e-13 --> significant
 
 #DUNN - post-hoc test
-dunn_result <- dunn.test::dunn.test(dat_final$mean_body_condition, dat_final$country, method = "bonferroni")
+dunn_result <- dunn.test::dunn.test(dat_final2$mean_body_condition, dat_final2$country, method = "bonferroni")
 print(dunn_result)
 
 
@@ -61,9 +71,21 @@ print(dunn_result)
 #------------check significance of BCI between genetic_cluster ------------------------
 load("dat_final.RData")
 
+
+#select clusters with at least 10 observations
+
+dat_final %>% 
+  dplyr::group_by(genetic_cluster) %>% 
+  dplyr::summarise(n = dplyr::n()) %>% 
+  dplyr::filter(n >= 10) %>% 
+  dplyr::select(genetic_cluster) -> clusters
+
+dat_final %>% 
+  dplyr::filter(genetic_cluster %in% clusters$genetic_cluster) -> dat_final2
+
 #Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ genetic_cluster, data = dat_final)
-print(kruskal_test) #Kruskal-Wallis chi-squared = 41.485, df = 4, p-value = 2.133e-08 --> significant
+kruskal_test <- kruskal.test(mean_body_condition ~ genetic_cluster, data = dat_final2)
+print(kruskal_test) #Kruskal-Wallis chi-squared = 38.398, df = 3, p-value = 2.327e-08 --> significant
 
 #DUNN - post-hoc test
 dunn_result <- dunn.test::dunn.test(dat_final$mean_body_condition, dat_final$genetic_cluster, method = "bonferroni")
@@ -110,12 +132,23 @@ print(dunn_result)
 #------------check significance of BCI most_precise_location ------------------------
 load("dat_final.RData")
 
+#select locations with at least 10 observations
+
+dat_final %>% 
+  dplyr::group_by(most_precise_location) %>% 
+  dplyr::summarise(n = dplyr::n()) %>% 
+  dplyr::filter(n >= 10) %>% 
+  dplyr::select(most_precise_location) -> locations
+
+dat_final %>% 
+  dplyr::filter(most_precise_location %in% locations$most_precise_location) -> dat_final2
+
 #Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final)
-print(kruskal_test) #Kruskal-Wallis chi-squared = 159.26, df = 68, p-value = 2.759e-09 --> significant 
+kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final2)
+print(kruskal_test) #Kruskal-Wallis chi-squared = 38.096, df = 8, p-value = 7.228e-06 --> significant 
 
 #DUNN - post-hoc test
-dunn_result <- dunn.test::dunn.test(dat_final$mean_body_condition, dat_final$most_precise_location, method = "bonferroni")
+dunn_result <- dunn.test::dunn.test(dat_final2$mean_body_condition, dat_final2$most_precise_location, method = "bonferroni")
 print(dunn_result)
 
 
@@ -124,7 +157,7 @@ print(dunn_result)
 #------------check significance of BCI most_precise_location and country ------------------------
 load("dat_final.RData")
 
-#these countries have a single location: Malaysia, Mayotte, PNG, Seychelles, Sri Lanka, Vanuatu
+#only countries with at least 10 observations
 
 #Kruskal-Wallis - non parametric
 kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "Australia",])
@@ -143,16 +176,8 @@ kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data =
 print(kruskal_test) #Kruskal-Wallis chi-squared = 0.020979, df = 1, p-value = 0.8848 --> NS
 
 #Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "Mozambique" ,])
-print(kruskal_test) #Kruskal-Wallis chi-squared = 2.3333, df = 1, p-value = 0.1266 --> NS
-
-#Kruskal-Wallis - non parametric
 kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "Qatar",])
 print(kruskal_test) #Kruskal-Wallis chi-squared = 5.3333, df = 1, p-value = 0.02092 --> NS
-
-#Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "Timor-Leste" ,])
-print(kruskal_test) #Kruskal-Wallis chi-squared = 2, df = 2, p-value = 0.3679 --> NS
 
 #Kruskal-Wallis - non parametric
 kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "New Caledonia",])
@@ -165,10 +190,6 @@ print(kruskal_test) #Kruskal-Wallis chi-squared = 2.2898, df = 4, p-value = 0.68
 #Kruskal-Wallis - non parametric
 kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "Thailand", ])
 print(kruskal_test) #Kruskal-Wallis chi-squared = 1.3393, df = 1, p-value = 0.2472--> NS
-
-#Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "India", ])
-print(kruskal_test) #Kruskal-Wallis chi-squared = 0.53333, df = 2, p-value = 0.7659 --> NS
 
 #Kruskal-Wallis - non parametric
 kruskal_test <- kruskal.test(mean_body_condition ~ most_precise_location, data = dat_final[dat_final$country == "Palau", ])
@@ -203,7 +224,7 @@ print(kruskal_test) # Kruskal-Wallis chi-squared = 2.0402, df = 1, p-value = 0.1
 #------------check significance of BCI between videos from social media or survey  ------------------------
 #Kruskal-Wallis - non parametric
 kruskal_test <- kruskal.test(mean_body_condition ~ social_media, data = dat_final)
-print(kruskal_test) # Kruskal-Wallis chi-squared = 0.013075, df = 1, p-value = 0.909 --> non significant  
+print(kruskal_test) # Kruskal-Wallis chi-squared = 0.0075612, df = 1, p-value = 0.9307 --> non significant  
 
 
 
@@ -216,17 +237,16 @@ print(kruskal_test) # Kruskal-Wallis chi-squared = 0.013075, df = 1, p-value = 0
 #load data per individual 
 load("dat_final.RData")
 
-############ Correlation matrix for ACP
-dat_final <- dat_final %>%
-  dplyr::ungroup() %>%
-  dplyr::select(c(mean_body_condition, mean_overall_quality, mean_resolution, mean_contrast, mean_distortion,                 
-                  mean_partial, mean_angle_quality, mean_w_nb_pixels, mean_l_nb_pixels)) 
 
 
 #---mean_overall_quality
 
+dat_final %>% 
+  dplyr::select(mean_body_condition, mean_overall_quality) %>% 
+  dplyr::mutate(mean_overall_quality = round(mean_overall_quality)) -> dat_final2
+
 #ANOVA - parametric
-anova <- aov(mean_body_condition ~ mean_overall_quality, data = dat_final)
+anova <- aov(mean_body_condition ~ mean_overall_quality, data = dat_final2)
 summary(anova) #non signif
 
 #SHAPIRO - normality test 
@@ -235,15 +255,20 @@ shapiro.test(residuals) #p-value > 0.05
 
 
 #Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ mean_overall_quality, data = dat_final)
-print(kruskal_test) #Kruskal-Wallis chi-squared = 42.093, df = 38, p-value = 0.2982 non signif
+kruskal_test <- kruskal.test(mean_body_condition ~ mean_overall_quality, data = dat_final2)
+print(kruskal_test) #Kruskal-Wallis chi-squared = 16.754, df = 10, p-value = 0.08 non signif
 
 
 
 #---mean_resolution
 
+
+dat_final %>% 
+  dplyr::select(mean_body_condition, mean_resolution) %>% 
+  dplyr::mutate(mean_resolution = round(mean_resolution)) -> dat_final2
+
 #ANOVA - parametric
-anova <- aov(mean_body_condition ~ mean_resolution, data = dat_final)
+anova <- aov(mean_body_condition ~ mean_resolution, data = dat_final2)
 summary(anova) #non signif
 
 #SHAPIRO - normality test 
@@ -252,8 +277,8 @@ shapiro.test(residuals) #p-value > 0.05
 
 
 #Kruskal-Wallis - non parametric
-kruskal_test <- kruskal.test(mean_body_condition ~ mean_resolution, data = dat_final)
-print(kruskal_test) #Kruskal-Wallis chi-squared = 5.4093, df = 12, p-value = 0.9429 non signif
+kruskal_test <- kruskal.test(mean_body_condition ~ mean_resolution, data = dat_final2)
+print(kruskal_test) #Kruskal-Wallis chi-squared = 4.0976, df = 7, p-value = 0.7685
 
 
 
