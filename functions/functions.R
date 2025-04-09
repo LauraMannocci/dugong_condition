@@ -125,6 +125,153 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
   
 
   
+  #------------- plot marginal effects per quantitative term (different y scale with data points) -------------------
+  print("*********plot marginal effects per quantitative term***********")
+  for (i in list_quantitative){
+    #add data points
+    if (i %in% c( "gdp_per_capita_province", "percent_mpas_all", "mean_gravity")){
+      if (i == "gdp_per_capita_province"){
+        assign(paste0("plot", which(list_quantitative == i)), 
+               sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                  type = "pred", terms = i, title = "", color = "blue") +
+                 ggplot2::geom_point(data = dat_model, ggplot2::aes(gdp_per_capita_province, body_condition), color = "grey", alpha = 0.3) +
+                 ggplot2::ylim(c(0.55, 0.9)) +
+                 ggplot2::theme(panel.background = ggplot2::element_blank(),
+                                axis.line = ggplot2::element_line(colour = "black")))
+      }
+      if (i == "percent_mpas_all"){
+        assign(paste0("plot", which(list_quantitative == i)), 
+               sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                  type = "pred", terms = i, title = "", color = "blue") +
+                 ggplot2::geom_point(data = dat_model, ggplot2::aes(percent_mpas_all, body_condition), color = "grey", alpha = 0.3) +
+                 ggplot2::ylim(c(0.6, 0.9)) +
+                 ggplot2::theme(panel.background = ggplot2::element_blank(),
+                                axis.line = ggplot2::element_line(colour = "black")))
+      }
+      if (i == "mean_gravity"){
+        assign(paste0("plot", which(list_quantitative == i)), 
+               sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                  type = "pred", terms = i, title = "", color = "blue") +
+                 ggplot2::geom_point(data = dat_model, ggplot2::aes(mean_gravity, body_condition), color = "grey", alpha = 0.3) +
+                 ggplot2::ylim(c(0.65, 1.1)) +
+                 ggplot2::theme(panel.background = ggplot2::element_blank(),
+                                axis.line = ggplot2::element_line(colour = "black")))
+      }
+      
+    }else{
+      assign(paste0("plot", which(list_quantitative == i)), sjPlot::plot_model(model, show.values = TRUE,  axis.title = c(i, "BCI"),
+                                                                               type = "pred", terms = i, title = "", color = "blue") +
+               ggplot2::theme(panel.background = ggplot2::element_blank(),
+                              axis.line = ggplot2::element_line(colour = "black")))
+    }
+  }
+  
+  
+  if (length(list_quantitative) == 3) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3)
+  }
+  if (length(list_quantitative) == 4) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
+  }
+  if (length(list_quantitative) == 5) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5)
+  }
+  if (length(list_quantitative) == 6) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6)
+  }
+  if (length(list_quantitative) == 7) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, plot7)
+  }
+  
+  
+  png(here::here(dir_name, paste0("plot_marginal_effect_quantitative_", model_name, "_different_yscale_data_points.png")), width = 900, height = 900)
+  plot(combined_plot)
+  dev.off()
+  
+  
+  
+  
+  
+  
+  #------------- plot marginal effects per quantitative term (different y scale with data points and quantiles) -------------------
+  print("*********plot marginal effects per quantitative term***********")
+  for (i in list_quantitative){
+    #add data points
+    if (i %in% c( "gdp_per_capita_province", "percent_mpas_all", "mean_gravity")){
+      if (i == "gdp_per_capita_province"){
+        #calculate quantiles
+        quant_inf <- unname(quantile(dplyr::pull(dat_model[i]), 0.05))
+        quant_sup <- unname(quantile(dplyr::pull(dat_model[i]), 0.95))
+        assign(paste0("plot", which(list_quantitative == i)), 
+               sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                  type = "pred", terms = i, title = "", color = "blue") +
+                 ggplot2::geom_point(data = dat_model, ggplot2::aes(gdp_per_capita_province, body_condition), color = "grey", alpha = 0.3, size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::ylim(c(0.55, 0.9)) +
+                 ggplot2::theme(panel.background = ggplot2::element_blank(),
+                                axis.line = ggplot2::element_line(colour = "black")))
+      }
+      if (i == "percent_mpas_all"){
+        #calculate quantiles
+        quant_inf <- unname(quantile(dplyr::pull(dat_model[i]), 0.05))
+        quant_sup <- unname(quantile(dplyr::pull(dat_model[i]), 0.95))
+        assign(paste0("plot", which(list_quantitative == i)), 
+               sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                  type = "pred", terms = i, title = "", color = "blue") +
+                 ggplot2::geom_point(data = dat_model, ggplot2::aes(percent_mpas_all, body_condition), color = "grey", alpha = 0.3, size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::ylim(c(0.6, 0.9)) +
+                 ggplot2::theme(panel.background = ggplot2::element_blank(),
+                                axis.line = ggplot2::element_line(colour = "black")))
+      }
+      if (i == "mean_gravity"){
+        #calculate quantiles
+        quant_inf <- unname(quantile(dplyr::pull(dat_model[i]), 0.05))
+        quant_sup <- unname(quantile(dplyr::pull(dat_model[i]), 0.95))
+        assign(paste0("plot", which(list_quantitative == i)), 
+               sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
+                                  type = "pred", terms = i, title = "", color = "blue") +
+                 ggplot2::geom_point(data = dat_model, ggplot2::aes(mean_gravity, body_condition), color = "grey", alpha = 0.3, size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::ylim(c(0.65, 1.1)) +
+                 ggplot2::theme(panel.background = ggplot2::element_blank(),
+                                axis.line = ggplot2::element_line(colour = "black")))
+      }
+      
+    }else{
+      assign(paste0("plot", which(list_quantitative == i)), sjPlot::plot_model(model, show.values = TRUE,  axis.title = c(i, "BCI"),
+                                                                               type = "pred", terms = i, title = "", color = "blue") +
+               ggplot2::theme(panel.background = ggplot2::element_blank(),
+                              axis.line = ggplot2::element_line(colour = "black")))
+    }
+  }
+  
+  
+  if (length(list_quantitative) == 3) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3)
+  }
+  if (length(list_quantitative) == 4) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
+  }
+  if (length(list_quantitative) == 5) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5)
+  }
+  if (length(list_quantitative) == 6) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6)
+  }
+  if (length(list_quantitative) == 7) {
+    combined_plot <- gridExtra::grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, plot7)
+  }
+  
+  
+  png(here::here(dir_name, paste0("plot_marginal_effect_quantitative_", model_name, "_different_yscale_data_points_quantiles.png")), width = 900, height = 900)
+  plot(combined_plot)
+  dev.off()
+  
+  
   
   #------------- plot marginal effects per quantitative term (same y scale) -------------------
   print("*********plot marginal effects per quantitative term***********")
