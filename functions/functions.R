@@ -206,8 +206,8 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
                sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
                                   type = "pred", terms = i, title = "", color = "blue") +
                  ggplot2::geom_point(data = dat_model, ggplot2::aes(gdp_per_capita_province, body_condition), color = "grey", alpha = 0.3, size = 2) +
-                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "grey50", size = 1) +
-                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "brown", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "brown", size = 1) +
                  ggplot2::ylim(c(0.55, 0.9)) +
                  ggplot2::theme(panel.background = ggplot2::element_blank(),
                                 axis.line = ggplot2::element_line(colour = "black")))
@@ -220,8 +220,8 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
                sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
                                   type = "pred", terms = i, title = "", color = "blue") +
                  ggplot2::geom_point(data = dat_model, ggplot2::aes(percent_mpas_all, body_condition), color = "grey", alpha = 0.3, size = 2) +
-                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "grey50", size = 1) +
-                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "brown", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "brown", size = 1) +
                  ggplot2::ylim(c(0.6, 0.9)) +
                  ggplot2::theme(panel.background = ggplot2::element_blank(),
                                 axis.line = ggplot2::element_line(colour = "black")))
@@ -234,8 +234,8 @@ produce_model_outputs <- function(model, model_name, list_quantitative, ylim, da
                sjPlot::plot_model(model, show.values = TRUE, axis.title = c(i, "BCI"),
                                   type = "pred", terms = i, title = "", color = "blue") +
                  ggplot2::geom_point(data = dat_model, ggplot2::aes(mean_gravity, body_condition), color = "grey", alpha = 0.3, size = 2) +
-                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "grey50", size = 1) +
-                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "grey50", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_inf, linetype = "dashed", color = "brown", size = 1) +
+                 ggplot2::geom_vline(xintercept = quant_sup, linetype = "dashed", color = "brown", size = 1) +
                  ggplot2::ylim(c(0.65, 1.1)) +
                  ggplot2::theme(panel.background = ggplot2::element_blank(),
                                 axis.line = ggplot2::element_line(colour = "black")))
