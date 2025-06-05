@@ -1234,6 +1234,40 @@ ggplot2::ggplot() +
 ggplot2::ggsave(here::here("outputs", "2-explore_measurement_tables", "barplot_BC_per_country_per_iucn_status.png"), width = 12, height = 9)
 
 
+
+########maps median BCI er country (polygons) -----------------------------------------------
+
+#make maps --------------------------------------------------------------------------------
+#load world map
+#medium resolution
+world <- rnaturalearth::ne_countries(scale = 'medium',  type = "countries", returnclass = 'sf')
+
+median_data <- dat_final %>%
+  dplyr::group_by(country) %>%
+  dplyr::summarise(median_bc = round(median(mean_body_condition), 3)) %>% 
+  dplyr::rename("name" = country) 
+
+#join our data to continent data
+world %>%
+  dplyr::group_by(name) %>%
+  dplyr::full_join(median_data, by = "name") -> world_median_data
+
+
+map = ggplot2::ggplot() +
+  ggplot2::geom_sf(data = world_median_data, ggplot2::aes(fill = median_bc)) + 
+  viridis::scale_fill_viridis(alpha = 1, begin = 0, end = 1, direction = -1, discrete = FALSE, option = "D", na.value = "grey80", name = "Median body condition") + 
+  ggplot2::coord_sf(xlim = c(35,166), ylim = c(27, -40)) + #limit to Indo-Pacific
+  ggplot2::theme(axis.title = ggplot2::element_blank(),
+                 axis.text = ggplot2::element_blank(),
+                 axis.ticks =  ggplot2::element_blank(),
+                 panel.background = ggplot2::element_blank(),
+                 legend.position = "bottom")
+
+map
+ggplot2::ggsave(here::here("outputs", "2-explore_measurement_tables", "map_median_bci_per_country.png"), map, width = 7, height = 5)
+
+
+
 #########mean_body_condition_type_stage_refined
 #count sample size per type individual
 dat_final <- dat_final %>% 
